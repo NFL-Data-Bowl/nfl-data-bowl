@@ -1,6 +1,8 @@
- # NFL-Data-Bowl
+# Pre-Snap Defensive Confusion Analysis
 
+Pre-snap defensive confusion occurs when defenders exhibit signs of miscommunication, hesitation, or last-second adjustments before the snap, often leading to coverage breakdowns or poor positioning. Our goal is to identify and quantify these moments using tracking data. We will analyze defensive player movements for erratic behavior, such as frequent direction changes, crossing paths, late alignments, and sudden shifts in response to offensive motion. Using these features, we will develop a Confusion Score—a numerical representation of how disorganized a defense appears before the snap. Initially, we will create a rule-based formula with equal weights for each factor, but we will refine it using a supervised machine learning model (such as logistic regression) that learns the optimal feature weights by correlating confusion levels with play outcomes (e.g., explosive plays, completion percentage). Once we have a reliable Confusion Score, we will explore its impact on game success through correlation analysis and clustering, identifying patterns in defensive formations that are most susceptible to confusion. Finally, we will train a predictive model to detect pre-snap confusion in real-time, providing insights into which teams and defensive schemes struggle most against motion-heavy offenses. This project will offer a new way to quantify defensive breakdowns, allowing teams to better exploit defensive weaknesses and improve communication strategies.
 
-Template used: [Team Data Science Process (TDSP)](https://docs.microsoft.com/en-us/azure/machine-learning/team-data-science-process/overview) 
 
 The two documents under Docs/Project, namely the [Charter](./Docs/Project/Charter.md) and [Exit Report](./Docs/Project/Exit%20Report.md) are particularly important to consider. They help to define the project at the start of an engagement, and provide a final report to the customer or client.
+
+Template used: [Team Data Science Process (TDSP)](https://docs.microsoft.com/en-us/azure/machine-learning/team-data-science-process/overview) 
