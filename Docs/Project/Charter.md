@@ -31,7 +31,7 @@ The team for this project consists of:
 ### Team Roles & Responsibilities  
 
 - **GitHub Management:** The repository was created and will be managed by **Fuad Hassan**.  
-- **Trello Board:** The Trello board was created and will be managed by **Paige Reece**.  
+- **Jira Board:** The Jira board was created and will be managed by **Paige Reece**.  
 - **Equal Contribution:** All team members will contribute evenly throughout the project.  
 
 ### Phase Breakdown  
@@ -50,7 +50,7 @@ The team for this project consists of:
 
 #### **Phase 3: Final Report & Presentation**  
 - The entire team will work together to complete the **final report and presentation**.  
-- Any additional tasks will be assigned and tracked via **Trello**.  
+- Any additional tasks will be assigned and tracked via **Jira**.  
 
 	
 ## Metrics  
@@ -201,6 +201,6 @@ The architecture diagram for the project is broken down into 3 parts: data, mode
 > **Note:** We need to add an endpoint for FastAPI, most likely between AWS SageMaker and AWS Lambda. Will decide this as the project goes on.
 
 ## Communication
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Communication regarding this project will be spread over multiple platforms. Direct communication will occur through a discord server. Our organizational tool will be Trello. The board includes all deadlines for the project and will be our tool to keep track of the division of work throughout the project. The link for the trello board is listed below. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Communication regarding this project will be spread over multiple platforms. Direct communication will occur through a discord server. Our organizational tool will be Jira. The board includes all deadlines for the project and will be our tool to keep track of the division of work throughout the project. The link for the Jira board is listed below. 
 
-[Trello](https://trello.com/b/KB0aKltg/nfl-data-bowl)
+[Jira](https://temple-cis-projects-in-cs.atlassian.net/jira/software/projects/NBDB2/list?atlOrigin=eyJpIjoiN2Q1OWQzMDQ1YjJjNDJiOTk4ZjVkYzE1ZDU5ZmI1OWIiLCJwIjoiaiJ9)
