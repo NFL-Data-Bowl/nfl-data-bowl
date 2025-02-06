@@ -1,12 +1,20 @@
 ## List of Raw Datasets
 
 
-| Raw Dataset Name | Link to the Full Dataset   | Full Dataset Size (MB)  | Link to Report |
-| ---:| ---: | ---: | ---: |
-| Raw Dataset 1 | [link](link/to/full/dataset1) | 2,000 | [Raw Dataset 1 Report](link/to/report1)|
-| Raw Dataset 2 | [link](link/to/full/dataset2) | 300 | [Raw Dataset 2 Report](link/to/report2)|
+| Raw Dataset Name | Link to the Full Dataset   | Full Dataset Size (MB) |
+| ---:| ---: | ---: |
+| `games.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=games.csv) | 0.00713 | 
+| `plays.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=plays.csv) | 6.89 | 
+| `players.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=players.csv) | 0.10475 |
+| `player_play.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=games.csv) | 52.53 | 
+| `tracking_week_[week].csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=tracking_week_1.csv) | 8111.56 |
 
-If the link to the full dataset does not apply, provide some information on how to access the full dataset. 
 
-If the data stays in an Azure file storage, please provide the link to the text file with the information of the file storage that has been checked in to the git repository. 
+## Notes:
+1. Accessing the Full Dataset: 
+    
+    The full dataset is available on the NFL Big Data Bowl 2025 Kaggle competition page. You will need to:
 
+    - Sign up for a Kaggle account.
+    - Accept the competition rules.
+    - Join the competition to download the data.
