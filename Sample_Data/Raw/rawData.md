@@ -1,13 +1,21 @@
 ## List of Raw Datasets
 
 
-| Raw Dataset Name | Link to the Full Dataset   | Full Dataset Size (MB) |
-| ---:| ---: | ---: |
-| `games.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=games.csv) | 0.00713 | 
-| `plays.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=plays.csv) | 6.89 | 
-| `players.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=players.csv) | 0.10475 |
-| `player_play.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=games.csv) | 52.53 | 
-| `tracking_week_[week].csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=tracking_week_1.csv) | 8111.56 |
+| Raw Dataset Name | Link to the Full Dataset | Full Dataset Size (MB) |
+|-----------------|--------------------------|------------------------|
+| `games.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=games.csv) | 0.007 |
+| `player_play.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=player_play.csv) | 51.00 |
+| `players.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=players.csv) | 0.103 |
+| `plays.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=plays.csv) | 6.60 |
+| `tracking_week_1.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=tracking_week_1.csv) | 927.00 |
+| `tracking_week_2.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=tracking_week_2.csv) | 874.00 |
+| `tracking_week_3.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=tracking_week_3.csv) | 931.00 |
+| `tracking_week_4.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=tracking_week_4.csv) | 880.00 |
+| `tracking_week_5.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=tracking_week_5.csv) | 927.00 |
+| `tracking_week_6.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=tracking_week_6.csv) | 813.00 |
+| `tracking_week_7.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=tracking_week_7.csv) | 787.00 |
+| `tracking_week_8.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=tracking_week_8.csv) | 862.00 |
+| `tracking_week_9.csv` | [link](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025/data?select=tracking_week_9.csv) | 739.00 |
 
 
 ## Notes:
