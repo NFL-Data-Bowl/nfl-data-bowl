@@ -176,6 +176,7 @@ cython_debug/
 .DS_Store/
 .vs_code/
 .ipynb_checkpoints/
+__init__.py
 
 Data/
 Docs/Features/intro_inv.ipynb
