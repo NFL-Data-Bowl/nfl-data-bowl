@@ -98,8 +98,7 @@ class FrameDataHelper:
         # Further filter by frame_type if provided
         if frame_type:
             filtered_data = filtered_data[filtered_data['frameType'] == frame_type]
-
-        return filtered_data
+            return filtered_data
 
 class Utils:
     def __init__ (self):
