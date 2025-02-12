@@ -1,5 +1,6 @@
 # contains helper functions for data processing
 import pandas as pd
+import os
 
 class FrameDataHelper:
     """
@@ -99,3 +100,24 @@ class FrameDataHelper:
             filtered_data = filtered_data[filtered_data['frameType'] == frame_type]
 
         return filtered_data
+
+class Utils:
+    def __init__ (self):
+        pass
+    
+    #function to get any file
+    def getFile(self, filepath:str) -> pd.DataFrame:
+        full_filepath = os.path.join(os.getcwd(),'nfl-big-data-bowl-2025', filepath)
+        return pd.read_csv(full_filepath)
+
+    #function to get any play
+    def getPlaybyId(self, playId:int) -> pd.DataFrame:
+        df= self.getFile('plays.csv')
+        df=df[df['playId']== playId]
+        return df
+
+    #function to get plays by game
+    def getPlaybyGame(self,gameId:int) -> pd.DataFrame:
+        df=self.getFile('plays.csv')
+        df=df[df['playId']== gameId]
+        return df
