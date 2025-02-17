@@ -178,3 +178,4 @@ cython_debug/
 .ipynb_checkpoints/
 __init__.py
 
+Sample_Data/Raw/
