@@ -179,5 +179,6 @@ cython_debug/
 __init__.py
 
 
-Sample_Data/Raw/
+Sample_Data/Raw/*.csv
+Sample_Data/Processed/*.csv
 

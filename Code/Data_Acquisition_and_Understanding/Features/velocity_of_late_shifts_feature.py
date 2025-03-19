@@ -23,15 +23,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings
 warnings.filterwarnings("ignore")
-base_dir = '/home/user/nfl-data-bowl/'
+base_dir = '/home/users/nfl-data-bowl/'
 data_dir = os.path.join(base_dir, 'Sample_Data/Raw')
 sys.path.append(base_dir)
 sys.path.append(data_dir)
 
 from Code.utils.Helper import FrameDataHelper
-from Code.utils.Visualize import Visualizer
-
-
 
 class VelocityLateShifts:
     def __init__(self, static_data, week_dataframes):
@@ -158,4 +155,5 @@ if __name__ == "__main__":
     vls_processor = VelocityLateShifts(static_data, week_dataframes)
     vls_result = vls_processor.run()
     print(vls_result.head())
+    vls_result.to_csv('velocity_late_shifts.csv', index=False)
 
