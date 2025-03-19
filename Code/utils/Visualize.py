@@ -15,9 +15,6 @@ import os
 import sys
 import imageio
 from IPython.display import display, Image
-base_dir = "Your_Base_Directory"
-data_dir = os.path.join(base_dir, 'Data')
-sys.path.append(base_dir)
 from Code.utils.Helper import FrameDataHelper
 
 
