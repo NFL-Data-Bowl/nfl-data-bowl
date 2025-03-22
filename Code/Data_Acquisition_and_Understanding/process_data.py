@@ -15,11 +15,13 @@ sys.path.append(data_dir)
 def load_data(data_dir):
     vls = pd.read_csv(os.path.join(data_dir, 'velocity_late_shifts.csv'))
     omp = pd.read_csv(os.path.join(data_dir, 'offensive_motion_plays.csv'))
-    return vls, omp
+    target = pd.read_csv(os.path.join(data_dir, 'TargetValueConfusedPlays.csv'))
+    return vls, omp, target
 
 if __name__ == '__main__':
-    vls, omp = load_data(data_dir)
+    vls, omp, target = load_data(data_dir)
     
     combine = vls.merge(omp, on=['gameId','playId'], how='inner')
+    combine = combine.merge(target, on=['gameId','playId'], how='inner')
     
     print(combine.head().T)
