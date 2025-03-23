@@ -1,43 +1,35 @@
 import pandas as pd
 
-def categorize_yard_gain(yards_gained):
-    if yards_gained <= 0:
-        return 0  # Bad/No gain or loss
-    elif yards_gained <= 8:
-        return 0.5  # Normal gain
-    else:
-        return 1  # Great gain (Defense confused)
-
-def is_play_confused(game_id, play_id):
+def is_play_confused(row):
     """
     Determines whether a play is confused based on yards gained and EPA. (Percentile-based split)
 
     Args:
-    - game_id (int): The game ID.
-    - play_id (int): The play ID.
+    - row 
 
     Returns:
-    - yards_gained <= 0: Bad (loss or no gain).
-    - 0 < yards_gained <= 8: Normal (within 25%-75%).
-    - yards_gained > 8: Great/Confused Defense.
+    - epa <= -0.5 or yardsGained <= 2 and EPA < 1 (not confused)
+    - yards_gained >= 17 and EPA >= 1.5, or extra condition for 3/4 plays(confused)
+    - else normal
     """
 
-    play = plays[(plays["gameId"] == game_id) & (plays["playId"] == play_id)]
-    
-    if play.empty:
-        print(f"Play (Game {game_id}, Play {play_id}) not found!")
-        return None 
-    
-    yards_gained = categorize_yard_gain(play["yardsGained"].values[0])
-    
-    return yards_gained
+    if row['yardsGained'] >= 17 and row['expectedPointsAdded'] >= 1.5:
+        return 2 
+    elif row['expectedPointsAdded'] >= 2 and row['yardsGained'] >= 10 and row['down'] in [3, 4] and row['yardsToGo'] > 7:
+        return 2 
+    elif row['expectedPointsAdded'] <= -0.5 or (row['yardsGained'] <= 2 and row['expectedPointsAdded'] < 1):
+        return 0 
+    else:
+        return 1
     
 
 if __name__ == "__main__":
-    plays = pd.read_csv("/home/tun62034/fuadhassan/nfl-data-bowl/Sample_Data/Raw/plays.csv")
+    plays = pd.read_csv("~/nfl-data-bowl/Sample_Data/Raw/plays.csv")
     
-    plays["isConfused"] = plays.apply(lambda row: is_play_confused(row["gameId"], row["playId"]), axis=1)
+    plays = plays[plays['penaltyYards'].isna()]
+    
+    plays["isConfused"] = plays.apply(is_play_confused, axis=1)
     
     df = plays[["gameId", "playId", "isConfused"]]
     print(df['isConfused'].value_counts())
-    df.to_csv("/home/tun62034/fuadhassan/nfl-data-bowl/Sample_Data/Processed/ConfusedPlays.csv", index=False)
+    df.to_csv("~/nfl-data-bowl/Sample_Data/Raw/playlabels.csv", index=False)
