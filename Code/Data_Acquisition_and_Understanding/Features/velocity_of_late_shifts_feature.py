@@ -1,18 +1,14 @@
 """
 Fuad Hassan
 Date: 2025-03-18
-Description: This script is used to compute the velocity of late shifts feature.
+Description: This script computes the velocity of late shifts feature.
 
-The class takes the datafreames and processe and retuns the dataframe with the velocity of late shifts feature.
+The class takes defensive player tracking data and computes:
+- teamTotalDistance
+- totalAverageSpeed
+- numPlayerMoved
 
-example:
-       gameId  playId    nflId  totalDistance  teamTotalDistance  averageSpeed  numPlayerMoved
-0  2022090800      56  38577.0           0.13               6.35        0.0315               9
-1  2022090800      56  41239.0           0.10               6.35        0.0055               9
-2  2022090800      56  42816.0           0.48               6.35        0.2370               9
-3  2022090800      56  43294.0           1.12               6.35        0.5590               9
-4  2022090800      56  43298.0           0.00               6.35        0.0000               9
-
+It groups results by gameId and playId.
 """
 
 import os
@@ -23,7 +19,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings
 warnings.filterwarnings("ignore")
-base_dir = '/home/users/nfl-data-bowl/'
+
+base_dir = '/home/tun62034/fuadhassan/nfl-data-bowl/'
 data_dir = os.path.join(base_dir, 'Sample_Data/Raw')
 sys.path.append(base_dir)
 sys.path.append(data_dir)
@@ -32,9 +29,6 @@ from Code.utils.Helper import FrameDataHelper
 
 class VelocityLateShifts:
     def __init__(self, static_data, week_dataframes):
-        """
-        takes all data
-        """
         self.games = static_data['games']
         self.players = static_data['players']
         self.plays = static_data['plays']
@@ -43,20 +37,14 @@ class VelocityLateShifts:
         self.result_df = pd.DataFrame()
 
     def run(self):
-        """ run the entire pipeline """
         print("[VelocityLateShifts] Running process...")
-
-        # Step1: process defensive plays across all weeks
         self.process_all_weeks()
-
-        # Step2: Compute metrics and summarize
         self.compute_and_merge_metrics()
-
         print("[VelocityLateShifts] Process complete.")
         return self.result_df
 
     def process_all_weeks(self):
-        print("Processing all weeks...")  
+        print("Processing all weeks...")
         weekly_results = []
 
         for week_num, week_df in enumerate(self.week_dataframes, start=1):
@@ -68,12 +56,10 @@ class VelocityLateShifts:
 
             weekly_results.append(filtered_data)
 
-        all_weeks_filtered = pd.concat(weekly_results, ignore_index=True)
-        print(f"All weeks combined shape: {all_weeks_filtered.shape}")
-        self.all_weeks_filtered = all_weeks_filtered
+        self.all_weeks_filtered = pd.concat(weekly_results, ignore_index=True)
+        print(f"All weeks combined shape: {self.all_weeks_filtered.shape}")
 
     def preprocess_defensive_plays(self, week_df):
-        " defensive team info and filter plays for defense "
         team_info = self.plays[['gameId', 'playId', 'possessionTeam', 'defensiveTeam']].drop_duplicates()
         week_with_team_info = week_df.merge(team_info, on=["gameId", "playId"], how="left")
         defense_plays = week_with_team_info[week_with_team_info['club'] == week_with_team_info['defensiveTeam']]
@@ -83,12 +69,10 @@ class VelocityLateShifts:
         helper = FrameDataHelper(defense_plays)
         snap_time = helper.extract_frame_data_time("SNAP")
         snap_time.rename(columns={'start_time': 'snap_start_time'}, inplace=True)
-
         return snap_time[['gameId', 'playId', 'snap_start_time']]
 
     def filter_pre_snap_data(self, defense_plays, snap_times, seconds_before_snap=2):
         defense_with_snap = defense_plays.merge(snap_times, on=["gameId", "playId"], how="left")
-
         defense_with_snap['time'] = pd.to_datetime(defense_with_snap['time'], format='mixed')
 
         mask = (
@@ -97,45 +81,33 @@ class VelocityLateShifts:
         )
 
         filtered = defense_with_snap[mask].sort_values(by=['gameId', 'playId', 'nflId', 'frameId'])
-
         return filtered
 
     def compute_and_merge_metrics(self):
-        """ Compute distances, speeds, and other metrics """
-        print("Computing metrics on all weeks combined...")
+        print("Computing metrics...")
+        data = self.all_weeks_filtered
+        grouped_player = data.groupby(['gameId', 'playId', 'nflId'])
+        total_distance = grouped_player['dis'].sum().reset_index(name='totalDistance')
+        average_speed = grouped_player['s'].mean().reset_index(name='averageSpeed')
+        player_metrics = total_distance.merge(average_speed, on=['gameId', 'playId', 'nflId'])
+        moved_players = player_metrics[player_metrics['totalDistance'] > 0]
+        team_total_distance = data.groupby(['gameId', 'playId'])['dis'].sum().reset_index(name='teamTotalDistance')
+        total_avg_speed = moved_players.groupby(['gameId', 'playId'])['averageSpeed'].sum().reset_index(name='totalAverageSpeed')
+        num_players_moved = moved_players.groupby(['gameId', 'playId']).size().reset_index(name='numPlayerMoved')
+        result = team_total_distance.merge(total_avg_speed, on=['gameId', 'playId'], how='left')
+        result = result.merge(num_players_moved, on=['gameId', 'playId'], how='left')
 
-        filtered_data = self.all_weeks_filtered
 
-        grouped_player = filtered_data.groupby(['gameId', 'playId', 'nflId'])
-        grouped_play = filtered_data.groupby(['gameId', 'playId'])
+        result['totalAverageSpeed'] = result['totalAverageSpeed'].fillna(0)
+        result['numPlayerMoved'] = result['numPlayerMoved'].fillna(0).astype(int)
 
-        # Total distance per player
-        total_distance_per_player = grouped_player['dis'].sum().reset_index(name='totalDistance')
+        self.result_df = result[['gameId', 'playId', 'teamTotalDistance', 'totalAverageSpeed', 'numPlayerMoved']]
+        print(f"Final shape: {self.result_df.shape}")
 
-        # Total distance per team per play
-        total_distance_per_team = grouped_play['dis'].sum().reset_index(name='teamTotalDistance')
-
-        # Players who moved (distance > 0)
-        player_moved = total_distance_per_player[total_distance_per_player['totalDistance'] > 0]
-        player_moved_per_play = player_moved.groupby(['gameId', 'playId']).size().reset_index(name='numPlayerMoved')
-
-        # Average speed per player
-        avg_speed_per_player = grouped_player['s'].mean().reset_index(name='averageSpeed')
-
-        # Merge everything
-        summary = total_distance_per_player.merge(
-            avg_speed_per_player, on=['gameId', 'playId', 'nflId'], how='left').merge(total_distance_per_team, on=['gameId', 'playId'], how='left').merge(player_moved_per_play, on=['gameId', 'playId'], how='left')
-
-        summary = summary[['gameId', 'playId', 'nflId', 'totalDistance', 'teamTotalDistance', 'averageSpeed', 'numPlayerMoved']]
-        self.result_df = summary
-
-        print(f"Final summary DataFrame shape: {summary.shape}")
-
-    def save_processed_data(self, output_dir, filename='final_summary.csv'):
-        """ Save the final dataframe to a CSV """
+    def save_processed_data(self, output_dir, filename='velocity_late_shifts_summary.csv'):
         output_path = os.path.join(output_dir, filename)
         self.result_df.to_csv(output_path, index=False)
-        print(f"Final summary saved at: {output_path}")
+        print(f"Saved final summary to {output_path}")
 
 
 
