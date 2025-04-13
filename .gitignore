@@ -178,3 +178,7 @@ cython_debug/
 .ipynb_checkpoints/
 __init__.py
 
+
+Sample_Data/Raw/*.csv
+Sample_Data/Processed/*.csv
+
