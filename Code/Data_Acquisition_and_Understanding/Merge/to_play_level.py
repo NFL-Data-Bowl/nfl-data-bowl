@@ -7,6 +7,7 @@ import warnings
 warnings.filterwarnings("ignore")
 base_dir = '/home/tun62034/fuadhassan/nfl-data-bowl/'
 data_dir_raw = os.path.join(base_dir, 'Sample_Data/Raw')
+data_dir_processed = os.path.join(base_dir, 'Sample_Data/Processed')
 data_dir_for_modeling = os.path.join(base_dir, 'Sample_Data/For_Modeling')
 sys.path.append(base_dir)
 sys.path.append(data_dir_raw)
@@ -93,12 +94,12 @@ def main():
     
     # Player play data to play and add tracking data
 
-    player_play_df_defense = pd.read_parquet(os.path.join(data_dir_for_modeling,'player_play.parquet'))
+    player_play_df_defense = pd.read_parquet(os.path.join(data_dir_processed,'player_play.parquet'))
     player_play_df_defense_tracking = pd.merge(player_play_df_defense, tracking_df, on=['gameId', 'playId', 'nflId'], how='inner')
     player_play_df_defense_tracking_on_play = player_level_to_play_level(player_play_df_defense_tracking)
     
     # now add play data
-    play_df = pd.read_parquet(os.path.join(data_dir_for_modeling,'plays.parquet'))
+    play_df = pd.read_parquet(os.path.join(data_dir_processed,'plays.parquet'))
     player_play_df_defense_tracking_and_play_df_on_play = pd.merge(player_play_df_defense_tracking_on_play, play_df, on=['gameId', 'playId'], how='left', suffixes=('', '_play'))
     player_play_df_defense_tracking_and_play_df_on_play.to_parquet(os.path.join(data_dir_for_modeling,'player_play_defense_tracking_and_play.parquet'), index=False)
     
