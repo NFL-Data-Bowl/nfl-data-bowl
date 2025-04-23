@@ -181,4 +181,9 @@ __init__.py
 
 Sample_Data/Raw/*.csv
 Sample_Data/Processed/*.csv
+Sample_Data/Raw/*.parquet
+Sample_Data/For_Modeling/*.parquet
+Sample_Data/For_Modeling/*.csv
+Sample_Data/Processed/*.parquet
+
 
